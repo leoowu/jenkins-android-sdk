@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+setup_environment_variables () {
+    echo "Creating environment variables..."
+    export ANDROID_HOME=$HOME/Desktop/android/Sdk
+    export ANDROID_SDK=$HOME/Desktop/android/Sdk/platforms
+    export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME
+    echo ""
+}
+
+debug_environment_variables() {
+    echo "Environment variables created:"
+    echo $ANDROID_HOME
+    echo $ANDROID_SDK
+    echo ""
+}
+
+download_android_sdk_tools () {
+    echo "Downloading Android SDK compressed file..."
+    wget -q --show-progress -O sdk-tools.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+    echo ""
+}
+
+extract_android_sdk_tools () {
+    echo "Extracting Android SDK Tools to \$ANDROID_HOME"
+    unzip -q sdk-tools.zip -d sdk-tools/
+    mkdir -p $ANDROID_HOME/tools
+    mv sdk-tools/tools/ $ANDROID_HOME
+    rm -rf sdk-tools/
+    echo ""
+}
+
+install_android_sdk () {
+    echo "Installing Android 28 (SDK and extras)"
+    $ANDROID_HOME/tools/bin/sdkmanager --update
+    yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-28" "build-tools;28.0.3"
+    yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+    echo ""
+}
+
+setup_environment_variables
+debug_environment_variables
+download_android_sdk_tools
+extract_android_sdk_tools
+install_android_sdk
