@@ -2,8 +2,8 @@
 
 setup_environment_variables () {
     echo "Creating environment variables..."
-    export ANDROID_HOME=$HOME/Desktop/android/Sdk
-    export ANDROID_SDK=$HOME/Desktop/android/Sdk/platforms
+    export ANDROID_HOME=$JENKINS_HOME/android/Sdk
+    export ANDROID_SDK=$JENKINS_HOME/android/Sdk/platforms
     export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME
     echo ""
 }
